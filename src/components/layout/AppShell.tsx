@@ -13,25 +13,22 @@ interface Props {
 }
 
 export function AppShell({ children }: Props) {
+  // Individual selectors — no object selectors to avoid Zustand 5 + useSyncExternalStore infinite loop
   const scenarioId = useAuthStore((s) => s.scenarioId)
-  const { loadScenario, fireEvent, setEngineState, events, notifications } = useDemoStore((s) => ({
-    loadScenario: s.loadScenario,
-    fireEvent: s.fireEvent,
-    setEngineState: s.setEngineState,
-    events: s.events,
-    notifications: s.notifications,
-  }))
-  const { setNotifications, addNotification } = useNotificationsStore((s) => ({
-    setNotifications: s.setNotifications,
-    addNotification: s.addNotification,
-  }))
+  const loadScenario = useDemoStore((s) => s.loadScenario)
+  const fireEvent = useDemoStore((s) => s.fireEvent)
+  const setEngineState = useDemoStore((s) => s.setEngineState)
+  const notifications = useDemoStore((s) => s.notifications)
+  const setNotifications = useNotificationsStore((s) => s.setNotifications)
+  const addNotification = useNotificationsStore((s) => s.addNotification)
 
-  // Sync demo notifications to notifications store
+  // Sync demo notifications to notifications store on load
   useEffect(() => {
     setNotifications(notifications)
-  }, [notifications, setNotifications])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // run once on mount — initial sync
 
-  // Sync new notifications added by demo engine
+  // Sync new notifications added by demo engine events
   useEffect(() => {
     const unsub = useDemoStore.subscribe((state, prev) => {
       if (state.notifications.length > prev.notifications.length) {
