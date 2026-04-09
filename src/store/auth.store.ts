@@ -1,6 +1,6 @@
 'use client'
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { persist, createJSONStorage } from 'zustand/middleware'
 import type { User, ScenarioId, OnboardingStep } from '@/lib/types'
 import { DEFAULT_SCENARIO_ID } from '@/lib/demo/scenarios'
 
@@ -85,6 +85,16 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'hhlab-auth',
+      storage: createJSONStorage(() => {
+        if (typeof window === 'undefined') {
+          return {
+            getItem: () => null,
+            setItem: () => {},
+            removeItem: () => {},
+          }
+        }
+        return localStorage
+      }),
       partialize: (state) => ({
         isLoggedIn: state.isLoggedIn,
         onboardingComplete: state.onboardingComplete,
