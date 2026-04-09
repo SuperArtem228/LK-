@@ -77,7 +77,7 @@ export function NotificationsPage() {
           description="Здесь появятся обновления по вашим откликам, интервью и новым вакансиям"
         />
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-6" data-tour-id="notification-list">
           {groups.map(({ label, items }) => (
             <div key={label}>
               <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-2">{label}</p>

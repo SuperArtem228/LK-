@@ -13,6 +13,7 @@ import {
   CreditCard,
   Zap,
   Settings,
+  X,
 } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 import { ROUTES } from '@/lib/constants'
@@ -30,7 +31,11 @@ const navItems = [
   { href: ROUTES.SUBSCRIPTION, label: 'Тариф', icon: CreditCard },
 ]
 
-export function Sidebar() {
+interface SidebarProps {
+  onClose?: () => void
+}
+
+export function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname()
   const unreadCount = useNotificationsStore((s) => s.unreadCount)
 
@@ -41,7 +46,16 @@ export function Sidebar() {
         <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center flex-shrink-0">
           <Zap className="w-4 h-4 text-white" />
         </div>
-        <span className="font-semibold text-zinc-900 text-base tracking-tight">Sofi</span>
+        <span className="font-semibold text-zinc-900 text-base tracking-tight flex-1">Sofi</span>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 transition-colors md:hidden"
+            aria-label="Закрыть меню"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
       </div>
 
       {/* Nav */}

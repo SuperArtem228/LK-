@@ -118,7 +118,7 @@ export function JobsPage() {
       {/* Main layout */}
       <div className={cn('grid gap-5', selectedJob ? 'grid-cols-1 lg:grid-cols-5' : 'grid-cols-1')}>
         {/* Job list */}
-        <div className={selectedJob ? 'lg:col-span-2' : 'lg:col-span-1'}>
+        <div className={selectedJob ? 'lg:col-span-2' : 'lg:col-span-1'} data-tour-id="job-list">
           {vacancies.length === 0 ? (
             <EmptyState icon={Search} title="Вакансий не найдено" description="Попробуйте изменить фильтры" />
           ) : (

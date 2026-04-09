@@ -102,7 +102,7 @@ export function InterviewsPage() {
 
           {/* Prep package */}
           {selected && (
-            <div className="lg:col-span-3 animate-fade-in">
+            <div className="lg:col-span-3 animate-fade-in" data-tour-id="prep-package">
               <div className="bg-white rounded-xl border border-zinc-100 overflow-hidden">
                 {/* Header */}
                 <div className={cn(

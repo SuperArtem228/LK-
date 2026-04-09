@@ -93,7 +93,7 @@ export function ApplicationsQueuePage() {
           description="Добавьте вакансии в очередь из раздела «Вакансии»"
         />
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-3" data-tour-id="queued-list">
           {queued.map((app) => (
             <QueueRow
               key={app.id}
@@ -154,7 +154,7 @@ function QueueRow({
       </div>
 
       {expanded && (
-        <div className="border-t border-zinc-50 px-5 py-4 animate-fade-in">
+        <div className="border-t border-zinc-50 px-5 py-4 animate-fade-in" data-tour-id="cover-letter-preview">
           <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-2">Сопроводительное письмо</h4>
           <p className="text-sm text-zinc-700 leading-relaxed">{app.coverLetter}</p>
           <p className="text-xs text-zinc-400 mt-3 flex items-center gap-1">

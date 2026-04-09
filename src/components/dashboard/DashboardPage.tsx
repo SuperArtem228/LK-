@@ -117,7 +117,7 @@ export function DashboardPage() {
         {/* Left col: stats + timeline */}
         <div className="lg:col-span-2 space-y-5">
           {/* Stats grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4" data-tour-id="stats-grid">
             <StatCard
               icon={Send}
               label="Откликов отправлено"
@@ -172,7 +172,7 @@ export function DashboardPage() {
           </div>
 
           {/* Event timeline */}
-          <div className="bg-white rounded-xl border border-zinc-100 overflow-hidden">
+          <div className="bg-white rounded-xl border border-zinc-100 overflow-hidden" data-tour-id="action-feed">
             <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-50">
               <h3 className="text-sm font-semibold text-zinc-900">Лента событий</h3>
               <Link href={ROUTES.NOTIFICATIONS} className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
@@ -190,7 +190,7 @@ export function DashboardPage() {
         {/* Right col: AI progress + actions */}
         <div className="space-y-5">
           {/* AI Progress */}
-          <div className="bg-white rounded-xl border border-zinc-100 p-5">
+          <div className="bg-white rounded-xl border border-zinc-100 p-5" data-tour-id="ai-progress">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-7 h-7 rounded-lg bg-indigo-50 flex items-center justify-center">
                 <Zap className="w-4 h-4 text-indigo-600" />

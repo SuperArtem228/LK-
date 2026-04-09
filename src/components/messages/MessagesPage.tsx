@@ -79,7 +79,7 @@ export function MessagesPage() {
       ) : (
         <div className="flex gap-0 bg-white rounded-xl border border-zinc-100 overflow-hidden" style={{ height: 'calc(100vh - 200px)', minHeight: 400 }}>
           {/* Thread list */}
-          <div className="w-72 flex-shrink-0 border-r border-zinc-100 overflow-y-auto">
+          <div className="w-72 flex-shrink-0 border-r border-zinc-100 overflow-y-auto" data-tour-id="thread-list">
             {threads.map((thread) => (
               <ThreadItem
                 key={thread.id}

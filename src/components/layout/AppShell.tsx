@@ -3,6 +3,9 @@
 import { useEffect } from 'react'
 import { Sidebar } from './Sidebar'
 import { Header } from './Header'
+import { MobileDrawer } from './MobileDrawer'
+import { TourOverlay } from '@/components/tour/TourOverlay'
+import { TourStartButton } from '@/components/tour/TourStartButton'
 import { useDemoStore } from '@/store/demo.store'
 import { useNotificationsStore } from '@/store/notifications.store'
 import { useAuthStore } from '@/store/auth.store'
@@ -55,15 +58,29 @@ export function AppShell({ children }: Props) {
 
   return (
     <div className="flex h-screen overflow-hidden bg-zinc-50">
-      <Sidebar />
+      {/* Desktop sidebar — hidden on mobile */}
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
+
+      {/* Mobile drawer overlay */}
+      <MobileDrawer />
+
+      {/* Tour overlay */}
+      <TourOverlay />
+
+      {/* Main content */}
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         <Header />
         <main className="flex-1 overflow-y-auto">
-          <div className="p-6 max-w-[1400px] mx-auto animate-fade-in">
+          <div className="p-4 md:p-6 max-w-[1400px] mx-auto animate-fade-in">
             {children}
           </div>
         </main>
       </div>
+
+      {/* Tour start FAB */}
+      <TourStartButton />
     </div>
   )
 }

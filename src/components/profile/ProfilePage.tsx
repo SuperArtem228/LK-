@@ -154,7 +154,7 @@ export function ProfilePage() {
         {/* AI Recommendations sidebar */}
         <div className="space-y-4">
           {/* Score comparison */}
-          <div className="bg-white rounded-xl border border-zinc-100 p-5">
+          <div className="bg-white rounded-xl border border-zinc-100 p-5" data-tour-id="resume-score">
             <h3 className="text-sm font-semibold text-zinc-900 mb-3 flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-indigo-500" />
               AI-анализ резюме
@@ -206,7 +206,7 @@ export function ProfilePage() {
 
           {/* Recommendations list */}
           {unapplied.length > 0 && (
-            <div className="bg-white rounded-xl border border-zinc-100 overflow-hidden">
+            <div className="bg-white rounded-xl border border-zinc-100 overflow-hidden" data-tour-id="recommendations-list">
               <div className="px-5 py-4 border-b border-zinc-50">
                 <h3 className="text-sm font-semibold text-zinc-900">
                   Рекомендации AI ({unapplied.length})
