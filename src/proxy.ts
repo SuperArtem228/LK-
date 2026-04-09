@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 const AUTH_PATHS = ['/login', '/welcome']
-const ONBOARDING_PATHS = ['/onboarding']
 const APP_PATHS = [
   '/dashboard',
   '/profile',
@@ -15,7 +14,7 @@ const APP_PATHS = [
   '/hh-connect',
 ]
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const session = request.cookies.get('hhlab-session')?.value
 
