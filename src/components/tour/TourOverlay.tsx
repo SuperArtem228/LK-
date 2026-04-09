@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback, useRef } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTourStore } from '@/store/tour.store'
@@ -15,8 +15,8 @@ interface Rect {
 }
 
 const PADDING = 8
-const TOOLTIP_WIDTH = 300
-const TOOLTIP_MAX_HEIGHT = 220
+const TOOLTIP_WIDTH = 320
+const MOBILE_BREAKPOINT = 768
 
 export function TourOverlay() {
   const active = useTourStore((s) => s.active)
@@ -31,7 +31,17 @@ export function TourOverlay() {
   const step = TOUR_STEPS[currentStep]
   const [targetRect, setTargetRect] = useState<Rect | null>(null)
   const [navigating, setNavigating] = useState(false)
-  const scrollParentRef = useRef<Element | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Track mobile breakpoint
+  useEffect(() => {
+    function check() {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    }
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   const findAndSetTarget = useCallback(() => {
     if (!step) return
@@ -40,15 +50,17 @@ export function TourOverlay() {
       setTargetRect(null)
       return
     }
-    const rect = el.getBoundingClientRect()
-    setTargetRect({
-      top: rect.top - PADDING,
-      left: rect.left - PADDING,
-      width: rect.width + PADDING * 2,
-      height: rect.height + PADDING * 2,
+    // Scroll into view first, then measure after a frame
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    requestAnimationFrame(() => {
+      const rect = el.getBoundingClientRect()
+      setTargetRect({
+        top: rect.top - PADDING,
+        left: rect.left - PADDING,
+        width: rect.width + PADDING * 2,
+        height: rect.height + PADDING * 2,
+      })
     })
-    // Scroll target into view if needed
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }, [step])
 
   // Navigate to the correct route for this step
@@ -56,6 +68,7 @@ export function TourOverlay() {
     if (!active || !step) return
     if (pathname !== step.route) {
       setNavigating(true)
+      setTargetRect(null)
       router.push(step.route)
     } else {
       setNavigating(false)
@@ -65,8 +78,8 @@ export function TourOverlay() {
   // Find target element after navigation completes
   useEffect(() => {
     if (!active || navigating) return
-    // Small delay for DOM to settle after route change
-    const t = setTimeout(findAndSetTarget, 100)
+    // Longer delay to let page render fully (especially on mobile)
+    const t = setTimeout(findAndSetTarget, 300)
     return () => clearTimeout(t)
   }, [active, navigating, findAndSetTarget, currentStep])
 
@@ -91,7 +104,16 @@ export function TourOverlay() {
   // Recompute on resize/scroll
   useEffect(() => {
     if (!active) return
-    const handler = () => findAndSetTarget()
+    let ticking = false
+    const handler = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(() => {
+          findAndSetTarget()
+          ticking = false
+        })
+      }
+    }
     window.addEventListener('resize', handler)
     window.addEventListener('scroll', handler, true)
     return () => {
@@ -102,8 +124,22 @@ export function TourOverlay() {
 
   if (!active || !step) return null
 
-  // Compute tooltip position
+  // --- Mobile: always bottom sheet ---
+  // --- Desktop: positioned relative to target ---
   function getTooltipStyle(): React.CSSProperties {
+    if (isMobile) {
+      // Bottom sheet on mobile — always visible, always full width
+      return {
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 110,
+        maxHeight: '60vh',
+      }
+    }
+
+    // Desktop positioning
     if (!targetRect || step.position === 'center') {
       return {
         position: 'fixed',
@@ -119,6 +155,7 @@ export function TourOverlay() {
     const vh = window.innerHeight
     const gap = 16
 
+    // On desktop, try positioning per step config, but fallback to bottom if no space
     let top: number | undefined
     let bottom: number | undefined
     let left: number | undefined
@@ -126,29 +163,31 @@ export function TourOverlay() {
 
     if (step.position === 'bottom') {
       top = targetRect.top + targetRect.height + gap
-      left = Math.min(targetRect.left, vw - TOOLTIP_WIDTH - 12)
+      left = Math.max(12, Math.min(targetRect.left, vw - TOOLTIP_WIDTH - 12))
     } else if (step.position === 'top') {
       bottom = vh - targetRect.top + gap
-      left = Math.min(targetRect.left, vw - TOOLTIP_WIDTH - 12)
+      left = Math.max(12, Math.min(targetRect.left, vw - TOOLTIP_WIDTH - 12))
     } else if (step.position === 'right') {
-      top = Math.min(targetRect.top, vh - TOOLTIP_MAX_HEIGHT - 12)
+      top = Math.max(12, Math.min(targetRect.top, vh - 260))
       left = targetRect.left + targetRect.width + gap
-      // If not enough space on right, fallback to left
-      if (left + TOOLTIP_WIDTH > vw) {
-        left = undefined
-        right = vw - targetRect.left + gap
+      if (left + TOOLTIP_WIDTH > vw - 12) {
+        // Fallback: position below
+        top = targetRect.top + targetRect.height + gap
+        left = Math.max(12, Math.min(targetRect.left, vw - TOOLTIP_WIDTH - 12))
       }
     } else if (step.position === 'left') {
-      top = Math.min(targetRect.top, vh - TOOLTIP_MAX_HEIGHT - 12)
+      top = Math.max(12, Math.min(targetRect.top, vh - 260))
       right = vw - targetRect.left + gap
-      if (right + TOOLTIP_WIDTH > vw) {
+      if (right + TOOLTIP_WIDTH > vw - 12) {
+        // Fallback: position below
+        top = targetRect.top + targetRect.height + gap
         right = undefined
-        left = targetRect.left + targetRect.width + gap
+        left = Math.max(12, Math.min(targetRect.left, vw - TOOLTIP_WIDTH - 12))
       }
     }
 
-    // Clamp top to viewport
-    if (top !== undefined) top = Math.max(12, Math.min(top, vh - TOOLTIP_MAX_HEIGHT - 12))
+    // Final clamp
+    if (top !== undefined) top = Math.max(12, Math.min(top, vh - 260))
     if (left !== undefined) left = Math.max(12, left)
     if (right !== undefined) right = Math.max(12, right)
 
@@ -158,29 +197,31 @@ export function TourOverlay() {
       bottom,
       left,
       right,
-      width: Math.min(TOOLTIP_WIDTH, vw - 24),
+      width: TOOLTIP_WIDTH,
       zIndex: 110,
     }
   }
 
-  const spotlightStyle: React.CSSProperties = targetRect
+  // Spotlight — only show if target found and not navigating
+  const showSpotlight = targetRect && !navigating
+  const spotlightStyle: React.CSSProperties = showSpotlight
     ? {
         position: 'fixed',
         top: targetRect.top,
         left: targetRect.left,
         width: targetRect.width,
-        height: targetRect.height,
+        height: Math.min(targetRect.height, isMobile ? window.innerHeight * 0.5 : targetRect.height),
         zIndex: 102,
         borderRadius: 10,
-        boxShadow: '0 0 0 9999px rgba(9,9,11,0.65)',
-        pointerEvents: 'none',
+        boxShadow: '0 0 0 9999px rgba(9,9,11,0.6)',
+        pointerEvents: 'none' as const,
       }
     : {
-        position: 'fixed',
+        position: 'fixed' as const,
         inset: 0,
         zIndex: 102,
-        backgroundColor: 'rgba(9,9,11,0.65)',
-        pointerEvents: 'none',
+        backgroundColor: 'rgba(9,9,11,0.6)',
+        pointerEvents: 'none' as const,
       }
 
   const isFirst = currentStep === 0
@@ -188,25 +229,24 @@ export function TourOverlay() {
 
   return (
     <>
-      {/* Backdrop — blocks interaction outside tooltip/target */}
+      {/* Backdrop — blocks interaction outside tooltip */}
       <div
         className="fixed inset-0 z-[100]"
-        style={{ pointerEvents: navigating ? 'auto' : 'auto' }}
         onClick={endTour}
       />
 
       {/* Spotlight (box-shadow cutout) */}
       <div style={spotlightStyle} />
 
-      {/* Highlight ring around target */}
-      {targetRect && (
+      {/* Highlight ring */}
+      {showSpotlight && (
         <div
           style={{
             position: 'fixed',
             top: targetRect.top,
             left: targetRect.left,
             width: targetRect.width,
-            height: targetRect.height,
+            height: Math.min(targetRect.height, isMobile ? window.innerHeight * 0.5 : targetRect.height),
             zIndex: 103,
             borderRadius: 10,
             border: '2px solid #818cf8',
@@ -219,15 +259,27 @@ export function TourOverlay() {
       {/* Tooltip */}
       <div
         style={getTooltipStyle()}
-        className="bg-white rounded-xl shadow-2xl border border-zinc-100 overflow-hidden animate-fade-in"
+        className={cn(
+          'bg-white shadow-2xl border border-zinc-100 overflow-hidden',
+          isMobile
+            ? 'rounded-t-2xl border-b-0 pb-[env(safe-area-inset-bottom)]'
+            : 'rounded-xl animate-fade-in'
+        )}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Mobile handle */}
+        {isMobile && (
+          <div className="flex justify-center pt-3 pb-1">
+            <div className="w-10 h-1 rounded-full bg-zinc-200" />
+          </div>
+        )}
+
         {/* Header */}
-        <div className="flex items-start justify-between px-4 pt-4 pb-2">
-          <h3 className="text-sm font-semibold text-zinc-900 leading-snug pr-2">{step.title}</h3>
+        <div className="flex items-start justify-between px-5 pt-4 pb-2">
+          <h3 className="text-base font-semibold text-zinc-900 leading-snug pr-3">{step.title}</h3>
           <button
             onClick={endTour}
-            className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 transition-colors flex-shrink-0"
+            className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 transition-colors flex-shrink-0"
             aria-label="Закрыть тур"
           >
             <X className="w-4 h-4" />
@@ -235,47 +287,47 @@ export function TourOverlay() {
         </div>
 
         {/* Body */}
-        <p className="px-4 pb-4 text-sm text-zinc-500 leading-relaxed">{step.body}</p>
+        <p className="px-5 pb-4 text-sm text-zinc-500 leading-relaxed">{step.body}</p>
 
         {/* Progress dots */}
-        <div className="flex items-center justify-center gap-1.5 pb-3">
+        <div className="flex items-center justify-center gap-1.5 pb-3 px-5">
           {TOUR_STEPS.map((_, i) => (
             <div
               key={i}
               className={cn(
                 'rounded-full transition-all duration-200',
-                i === currentStep ? 'w-4 h-1.5 bg-indigo-600' : 'w-1.5 h-1.5 bg-zinc-200'
+                i === currentStep ? 'w-5 h-1.5 bg-indigo-600' : 'w-1.5 h-1.5 bg-zinc-200'
               )}
             />
           ))}
         </div>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between px-4 pb-4 pt-1 border-t border-zinc-50">
+        <div className="flex items-center justify-between px-5 pb-5 pt-2 border-t border-zinc-100">
           <button
             onClick={prevStep}
             disabled={isFirst}
             className={cn(
-              'flex items-center gap-1 text-xs font-medium px-2.5 py-1.5 rounded-lg transition-colors',
+              'flex items-center gap-1 text-sm font-medium px-3 py-2 rounded-lg transition-colors',
               isFirst
                 ? 'text-zinc-300 cursor-default'
-                : 'text-zinc-600 hover:bg-zinc-100'
+                : 'text-zinc-600 hover:bg-zinc-100 active:bg-zinc-200'
             )}
           >
-            <ChevronLeft className="w-3.5 h-3.5" />
+            <ChevronLeft className="w-4 h-4" />
             Назад
           </button>
 
-          <span className="text-xs text-zinc-400">
+          <span className="text-sm text-zinc-400 tabular-nums">
             {currentStep + 1} / {TOUR_STEPS.length}
           </span>
 
           <button
             onClick={nextStep}
-            className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+            className="flex items-center gap-1 text-sm font-semibold px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800 transition-colors"
           >
             {isLast ? 'Готово' : 'Далее'}
-            {!isLast && <ChevronRight className="w-3.5 h-3.5" />}
+            {!isLast && <ChevronRight className="w-4 h-4" />}
           </button>
         </div>
       </div>
@@ -284,7 +336,7 @@ export function TourOverlay() {
       {navigating && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[120] bg-white rounded-xl shadow-xl px-6 py-4 flex items-center gap-3">
           <div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
-          <span className="text-sm text-zinc-700">Переходим к следующему шагу...</span>
+          <span className="text-sm text-zinc-700">Загрузка...</span>
         </div>
       )}
     </>
