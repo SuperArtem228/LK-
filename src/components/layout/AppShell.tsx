@@ -73,7 +73,7 @@ export function AppShell({ children }: Props) {
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         <Header />
         <main className="flex-1 overflow-y-auto">
-          <div className="p-4 md:p-6 max-w-[1400px] mx-auto animate-fade-in">
+          <div className="p-4 md:p-6 pb-24 md:pb-6 max-w-[1400px] mx-auto animate-fade-in">
             {children}
           </div>
         </main>

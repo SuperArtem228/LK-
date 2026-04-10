@@ -76,6 +76,7 @@ body {
 
 .animate-fade-in { animation: fadeIn 0.25s ease-out forwards; }
 .animate-slide-left { animation: slideInLeft 0.25s ease-out forwards; }
+.animation-delay-300 { animation-delay: 300ms; }
 
 .skeleton {
   background: linear-gradient(90deg, #f4f4f5 25%, #e4e4e7 50%, #f4f4f5 75%);

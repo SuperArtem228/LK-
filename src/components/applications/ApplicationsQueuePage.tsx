@@ -1,34 +1,44 @@
 'use client'
 
-import { useState } from 'react'
-import { Send, Clock, ChevronDown, ChevronUp, Zap } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Send, Clock, ChevronDown, ChevronUp, Zap, Sparkles } from 'lucide-react'
 import { useDemoStore } from '@/store/demo.store'
+import { useTourStore } from '@/store/tour.store'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { cn } from '@/lib/utils/cn'
-import { formatSalary } from '@/lib/utils/format'
 import { DAILY_APPLY_LIMIT } from '@/lib/constants'
 import { toast } from 'sonner'
 import type { Application } from '@/lib/types'
+
+// Tour step index for cover-letter (0-based)
+const COVER_LETTER_TOUR_STEP = 7
 
 export function ApplicationsQueuePage() {
   const applications = useDemoStore((s) => s.applications)
   const updateApplicationStatus = useDemoStore((s) => s.updateApplicationStatus)
   const addNotification = useDemoStore((s) => s.addNotification)
+  const tourActive = useTourStore((s) => s.active)
+  const tourStep = useTourStore((s) => s.currentStep)
 
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [dailyLimit, setDailyLimit] = useState(DAILY_APPLY_LIMIT)
   const [sending, setSending] = useState<string | null>(null)
 
   const queued = applications.filter((a) => ['planned', 'generating'].includes(a.status))
+
+  // Auto-expand first item for the cover-letter tour step
+  useEffect(() => {
+    if (tourActive && tourStep === COVER_LETTER_TOUR_STEP && queued.length > 0) {
+      setExpandedId(queued[0].id)
+    }
+  }, [tourActive, tourStep]) // eslint-disable-line react-hooks/exhaustive-deps
   const sentToday = applications.filter((a) => {
     if (!['sent', 'viewed', 'replied', 'interview', 'offer', 'rejected'].includes(a.status)) return false
     if (!a.sentAt) return false
     return Date.now() - new Date(a.sentAt).getTime() < 86400000
   }).length
-
-  const scenario = useDemoStore((s) => s.scenario)
 
   async function handleSend(app: Application) {
     setSending(app.id)
