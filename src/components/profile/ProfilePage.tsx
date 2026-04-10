@@ -54,7 +54,7 @@ export function ProfilePage() {
     <div>
       <PageHeader
         title="Профиль и резюме"
-        description="Управляйте резюме и применяйте AI-рекомендации"
+        description="AI проанализировал резюме и подготовил рекомендации"
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -155,10 +155,15 @@ export function ProfilePage() {
         <div className="space-y-4">
           {/* Score comparison */}
           <div className="bg-white rounded-xl border border-zinc-100 p-5" data-tour-id="resume-score">
-            <h3 className="text-sm font-semibold text-zinc-900 mb-3 flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-zinc-900 mb-1 flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-indigo-500" />
-              AI-анализ резюме
+              AI-оценка резюме
             </h3>
+            <p className="text-xs text-zinc-400 mb-3">
+              {unapplied.length > 0
+                ? `${unapplied.length} правок поднимут оценку на ${improved.score - original.score} пунктов`
+                : 'Резюме оптимизировано — конверсия откликов выросла'}
+            </p>
             <div className="flex gap-4 mb-4">
               <div className="flex-1 text-center p-3 rounded-lg bg-zinc-50">
                 <p className="text-2xl font-bold text-zinc-500 tabular-nums">{original.score}</p>
@@ -186,12 +191,12 @@ export function ProfilePage() {
                 {applyingAll ? (
                   <>
                     <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Применяем...
+                    AI улучшает резюме...
                   </>
                 ) : (
                   <>
                     <Sparkles className="w-4 h-4" />
-                    Применить все рекомендации
+                    Применить все ({unapplied.length})
                   </>
                 )}
               </button>

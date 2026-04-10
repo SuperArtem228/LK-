@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { Search, Filter, Bookmark, EyeOff, Send, X, ChevronRight, MapPin, Briefcase } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Search, Bookmark, EyeOff, Send, X, MapPin, CheckCircle2 } from 'lucide-react'
 import { useDemoStore } from '@/store/demo.store'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { MatchBadge } from '@/components/shared/MatchBadge'
@@ -9,6 +10,7 @@ import { EmptyState } from '@/components/shared/EmptyState'
 import { cn } from '@/lib/utils/cn'
 import { formatSalary } from '@/lib/utils/format'
 import { fromNow } from '@/lib/utils/dates'
+import { ROUTES } from '@/lib/constants'
 import type { Vacancy, VacancyCollection } from '@/lib/types'
 import { toast } from 'sonner'
 
@@ -29,12 +31,15 @@ const FORMAT_LABELS: Record<string, string> = {
 
 export function JobsPage() {
   const scenario = useDemoStore((s) => s.scenario)
+  const addApplicationFromVacancy = useDemoStore((s) => s.addApplicationFromVacancy)
+  const router = useRouter()
   const [collection, setCollection] = useState<VacancyCollection | 'all'>('all')
   const [formatFilter, setFormatFilter] = useState<string>('all')
   const [search, setSearch] = useState('')
   const [selectedJob, setSelectedJob] = useState<Vacancy | null>(null)
   const [saved, setSaved] = useState<Set<string>>(new Set())
   const [hidden, setHidden] = useState<Set<string>>(new Set())
+  const [queued, setQueued] = useState<Set<string>>(new Set())
 
   const vacancies = useMemo(() => {
     return scenario.vacancies.filter((v) => {
@@ -62,7 +67,19 @@ export function JobsPage() {
   }
 
   function handleAddToQueue(vacancy: Vacancy) {
-    toast.success(`«${vacancy.title}» добавлена в очередь откликов`)
+    addApplicationFromVacancy({
+      id: vacancy.id,
+      title: vacancy.title,
+      company: vacancy.company,
+      matchReasons: vacancy.matchReasons,
+    })
+    setQueued((prev) => new Set([...prev, vacancy.id]))
+    toast.success(`Добавлено в очередь — AI пишет письмо`, {
+      action: {
+        label: 'Открыть очередь',
+        onClick: () => router.push(ROUTES.APPLICATIONS_QUEUE),
+      },
+    })
   }
 
   const collections = ['all', 'best_today', 'quick_apply', 'high_salary', 'matches_experience'] as const
@@ -71,7 +88,7 @@ export function JobsPage() {
     <div>
       <PageHeader
         title="Вакансии"
-        description={`${scenario.vacancies.length - hidden.size} подходящих вакансий`}
+        description={`AI отобрал ${scenario.vacancies.length - hidden.size} вакансий из ${scenario.hhConnection?.importedVacancies ?? 247} найденных`}
       />
 
       {/* Collections */}
@@ -129,6 +146,7 @@ export function JobsPage() {
                   vacancy={vacancy}
                   isSelected={selectedJob?.id === vacancy.id}
                   isSaved={saved.has(vacancy.id)}
+                  isQueued={queued.has(vacancy.id)}
                   compact={!!selectedJob}
                   onSelect={() => setSelectedJob(vacancy)}
                   onSave={() => handleSave(vacancy.id)}
@@ -210,6 +228,12 @@ export function JobsPage() {
 
               {/* Actions */}
               <div className="flex gap-3">
+                {queued.has(selectedJob.id) ? (
+                  <div className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg bg-green-50 text-green-700 text-sm font-medium border border-green-200">
+                    <CheckCircle2 className="w-4 h-4" />
+                    Добавлено в очередь
+                  </div>
+                ) : (
                 <button
                   onClick={() => handleAddToQueue(selectedJob)}
                   className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-all"
@@ -217,6 +241,7 @@ export function JobsPage() {
                   <Send className="w-4 h-4" />
                   Добавить отклик
                 </button>
+                )}
                 <button
                   onClick={() => handleSave(selectedJob.id)}
                   className={cn(
@@ -242,11 +267,12 @@ export function JobsPage() {
 }
 
 function JobCard({
-  vacancy, isSelected, isSaved, compact, onSelect, onSave, onHide, onAddToQueue
+  vacancy, isSelected, isSaved, isQueued, compact, onSelect, onSave, onHide, onAddToQueue
 }: {
   vacancy: Vacancy
   isSelected: boolean
   isSaved: boolean
+  isQueued: boolean
   compact: boolean
   onSelect: () => void
   onSave: () => void
@@ -286,12 +312,18 @@ function JobCard({
 
         {!compact && (
           <div className="flex items-center gap-2 mt-3 pt-3 border-t border-zinc-50">
+            {isQueued ? (
+              <span className="flex items-center gap-1.5 text-xs font-medium text-green-600">
+                <CheckCircle2 className="w-3 h-3" /> В очереди
+              </span>
+            ) : (
             <button
               onClick={(e) => { e.stopPropagation(); onAddToQueue() }}
               className="flex items-center gap-1.5 text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
             >
               <Send className="w-3 h-3" /> Откликнуться
             </button>
+            )}
             <button
               onClick={(e) => { e.stopPropagation(); onSave() }}
               className={cn('flex items-center gap-1.5 text-xs font-medium transition-colors', isSaved ? 'text-indigo-600' : 'text-zinc-400 hover:text-zinc-600')}

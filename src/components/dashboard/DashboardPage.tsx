@@ -57,19 +57,22 @@ export function DashboardPage() {
   const upcomingInterview = interviews.find((i) => i.status === 'upcoming')
   const trialDaysLeft = scenario.user.trialDaysLeft
 
+  const resumeScore = scenario.resumes.find((r) => r.version === 'original')?.score ?? 0
+  const resumeImproved = scenario.resumes.find((r) => r.version === 'improved')?.score ?? 0
+
   const actionItems = [
-    scenario.resumes.find((r) => r.version === 'original') && {
-      label: 'Улучшить резюме с AI',
+    resumeScore > 0 && resumeScore < 80 && {
+      label: `Резюме набирает ${resumeScore}/100 — AI поднимет до ${resumeImproved}`,
       href: ROUTES.PROFILE,
       urgent: false,
     },
     notifications.some((n) => !n.read && n.type === 'recruiter_reply') && {
-      label: 'Новое сообщение от рекрутера',
+      label: 'Новое сообщение от рекрутера — ответ уже подготовлен',
       href: ROUTES.MESSAGES,
       urgent: true,
     },
     upcomingInterview && {
-      label: `Подготовиться к интервью — ${upcomingInterview.company}`,
+      label: `Интервью в ${upcomingInterview.company} — AI собрал досье на компанию`,
       href: ROUTES.INTERVIEWS,
       urgent: daysUntil(upcomingInterview.scheduledAt) <= 1,
     },
@@ -191,35 +194,44 @@ export function DashboardPage() {
         <div className="space-y-5">
           {/* AI Progress */}
           <div className="bg-white rounded-xl border border-zinc-100 p-5" data-tour-id="ai-progress">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-indigo-50 flex items-center justify-center">
-                <Zap className="w-4 h-4 text-indigo-600" />
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-indigo-50 flex items-center justify-center">
+                  <Zap className="w-4 h-4 text-indigo-600" />
+                </div>
+                <h3 className="text-sm font-semibold text-zinc-900">AI работает за вас</h3>
               </div>
-              <h3 className="text-sm font-semibold text-zinc-900">AI-поиск</h3>
+              <span className="flex items-center gap-1.5 text-xs font-medium text-green-600">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                Активен
+              </span>
             </div>
             <div className="space-y-4">
               <AIProgressItem
                 icon={Search}
-                label="Вакансий найдено"
+                label="Вакансий просмотрено"
                 value={scenario.hhConnection.importedVacancies}
                 max={300}
                 color="indigo"
               />
               <AIProgressItem
                 icon={TrendingUp}
-                label="Отобрано AI"
+                label="Подходят по профилю"
                 value={scenario.vacancies.length}
                 max={scenario.hhConnection.importedVacancies}
                 color="violet"
               />
               <AIProgressItem
                 icon={Send}
-                label="В очереди откликов"
+                label="Готовы к отклику"
                 value={stats.queued}
                 max={20}
                 color="blue"
               />
             </div>
+            <p className="text-xs text-zinc-400 mt-4 pt-3 border-t border-zinc-50">
+              Следующий поиск — через 2 часа
+            </p>
           </div>
 
           {/* Action items */}

@@ -28,6 +28,7 @@ interface DemoState {
   addMessage: (threadId: string, message: Message) => void
   addThread: (thread: Thread) => void
   updateResumeApplied: (recommendationId: string) => void
+  addApplicationFromVacancy: (v: { id: string; title: string; company: string; matchReasons: string[] }) => string
 }
 
 export const useDemoStore = create<DemoState>()((set, get) => {
@@ -201,6 +202,32 @@ export const useDemoStore = create<DemoState>()((set, get) => {
           ),
         },
       }))
+    },
+
+    addApplicationFromVacancy: (v) => {
+      const id = `app-manual-${Date.now()}`
+      const reason = v.matchReasons[0] ?? 'высокое совпадение с вакансией'
+      const coverLetter =
+        `Здравствуйте!\n\nМеня заинтересовала вакансия «${v.title}» в компании ${v.company}. ` +
+        `AI проанализировал вакансию и выделил ключевое совпадение: ${reason.toLowerCase()}.\n\n` +
+        `Готов обсудить детали и ответить на вопросы.\n\nС уважением,\nАлексей Смирнов`
+
+      const newApp: Application = {
+        id,
+        vacancyId: v.id,
+        vacancyTitle: v.title,
+        company: v.company,
+        status: 'planned',
+        coverLetter,
+        source: 'manual',
+        statusHistory: [{ status: 'planned', at: new Date().toISOString() }],
+      }
+
+      set((state) => ({
+        applications: [newApp, ...state.applications],
+      }))
+
+      return id
     },
   }
 })
