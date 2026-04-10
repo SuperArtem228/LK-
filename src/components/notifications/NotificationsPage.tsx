@@ -22,7 +22,7 @@ const TYPE_ICONS: Record<NotificationType, React.ComponentType<{ className?: str
 }
 
 const TYPE_COLORS: Record<NotificationType, string> = {
-  vacancy_found: 'bg-indigo-50 text-indigo-600',
+  vacancy_found: 'bg-lime-50 text-lime-600',
   apply_sent: 'bg-blue-50 text-blue-600',
   recruiter_reply: 'bg-green-50 text-green-600',
   interview_scheduled: 'bg-purple-50 text-purple-600',
@@ -103,7 +103,7 @@ function NotificationRow({ notification: n, onClick }: { notification: Notificat
       onClick={onClick}
       className={cn(
         'flex items-start gap-4 px-5 py-4 cursor-pointer transition-colors hover:bg-zinc-50/60',
-        !n.read && 'bg-indigo-50/30'
+        !n.read && 'bg-lime-50/30'
       )}
     >
       <div className={cn('w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0', colorClass)}>
@@ -121,7 +121,7 @@ function NotificationRow({ notification: n, onClick }: { notification: Notificat
           <div className="flex items-center gap-2 flex-shrink-0">
             <span className="text-xs text-zinc-400">{fromNow(n.createdAt)}</span>
             {!n.read && (
-              <span className="w-2 h-2 rounded-full bg-indigo-500 flex-shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-lime-500 flex-shrink-0" />
             )}
           </div>
         </div>

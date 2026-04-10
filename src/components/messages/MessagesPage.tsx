@@ -152,7 +152,7 @@ export function MessagesPage() {
                   <ArrowLeft className="w-5 h-5" />
                 </button>
 
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-lime-400 to-purple-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                   {selectedThread.recruiterName.split(' ').map((n) => n[0]).join('').slice(0, 2)}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -182,27 +182,27 @@ export function MessagesPage() {
 
               {/* AI Draft */}
               {aiDraft && showDraft && !replyText && (
-                <div className="mx-4 mb-2 p-3 rounded-xl bg-indigo-50 border border-indigo-100 animate-fade-in flex-shrink-0">
+                <div className="mx-4 mb-2 p-3 rounded-xl bg-lime-50 border border-lime-100 animate-fade-in flex-shrink-0">
                   <div className="flex items-center justify-between mb-1.5">
                     <div className="flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-                      <span className="text-xs font-semibold text-indigo-700">AI подготовил ответ</span>
+                      <Sparkles className="w-3.5 h-3.5 text-lime-500" />
+                      <span className="text-xs font-semibold text-lime-700">AI подготовил ответ</span>
                     </div>
-                    <button onClick={() => setShowDraft(false)} className="text-indigo-300 hover:text-indigo-600">
+                    <button onClick={() => setShowDraft(false)} className="text-lime-300 hover:text-lime-600">
                       <X className="w-3.5 h-3.5" />
                     </button>
                   </div>
-                  <p className="text-sm text-indigo-800 leading-relaxed mb-2.5 line-clamp-2">{aiDraft}</p>
+                  <p className="text-sm text-lime-800 leading-relaxed mb-2.5 line-clamp-2">{aiDraft}</p>
                   <div className="flex gap-2">
                     <button
                       onClick={handleUseDraft}
-                      className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition-all"
+                      className="px-3 py-1.5 bg-lime-600 text-white text-xs font-medium rounded-lg hover:bg-lime-700 transition-all"
                     >
                       Использовать
                     </button>
                     <button
                       onClick={() => setShowDraft(false)}
-                      className="px-3 py-1.5 border border-indigo-200 text-indigo-600 text-xs font-medium rounded-lg hover:bg-indigo-50 transition-all"
+                      className="px-3 py-1.5 border border-lime-200 text-lime-600 text-xs font-medium rounded-lg hover:bg-lime-50 transition-all"
                     >
                       Написать своё
                     </button>
@@ -217,7 +217,7 @@ export function MessagesPage() {
                   onChange={(e) => setReplyText(e.target.value)}
                   placeholder="Написать ответ..."
                   rows={2}
-                  className="flex-1 px-3 py-2.5 text-sm text-zinc-900 bg-white rounded-xl border border-zinc-200 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="flex-1 px-3 py-2.5 text-sm text-zinc-900 bg-white rounded-xl border border-zinc-200 resize-none focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleSend()
                   }}
@@ -228,7 +228,7 @@ export function MessagesPage() {
                   className={cn(
                     'p-2.5 rounded-xl transition-all flex-shrink-0',
                     replyText.trim() && !sending
-                      ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                      ? 'bg-lime-600 text-white hover:bg-lime-700'
                       : 'bg-zinc-100 text-zinc-300 cursor-not-allowed'
                   )}
                 >
@@ -257,15 +257,15 @@ function ThreadItem({ thread, isSelected, onSelect }: { thread: Thread; isSelect
       onClick={onSelect}
       className={cn(
         'flex items-start gap-3 px-4 py-3.5 cursor-pointer transition-colors border-b border-zinc-50 active:bg-zinc-100',
-        isSelected ? 'bg-indigo-50' : 'hover:bg-zinc-50'
+        isSelected ? 'bg-lime-50' : 'hover:bg-zinc-50'
       )}
     >
       <div className="relative flex-shrink-0">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-xs font-bold">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-lime-400 to-purple-500 flex items-center justify-center text-white text-xs font-bold">
           {thread.recruiterName.split(' ').map((n) => n[0]).join('').slice(0, 2)}
         </div>
         {thread.unreadCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-indigo-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-lime-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
             {thread.unreadCount}
           </span>
         )}
@@ -293,16 +293,16 @@ function MessageBubble({ message, recruiterName }: { message: Message; recruiter
   return (
     <div className={cn('flex gap-2.5 animate-fade-in', isUser ? 'flex-row-reverse' : 'flex-row')}>
       {!isUser && (
-        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0 mt-1">
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-lime-400 to-purple-500 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0 mt-1">
           {recruiterName.split(' ').map((n) => n[0]).join('').slice(0, 2)}
         </div>
       )}
       <div className={cn(
         'max-w-[80%] rounded-2xl px-4 py-2.5',
-        isUser ? 'bg-indigo-600 text-white rounded-tr-sm' : 'bg-zinc-100 text-zinc-800 rounded-tl-sm'
+        isUser ? 'bg-lime-600 text-white rounded-tr-sm' : 'bg-zinc-100 text-zinc-800 rounded-tl-sm'
       )}>
         <p className="text-sm leading-relaxed">{message.text}</p>
-        <p className={cn('text-[10px] mt-1', isUser ? 'text-indigo-200 text-right' : 'text-zinc-400')}>
+        <p className={cn('text-[10px] mt-1', isUser ? 'text-lime-200 text-right' : 'text-zinc-400')}>
           {formatTime(message.sentAt)}
         </p>
       </div>

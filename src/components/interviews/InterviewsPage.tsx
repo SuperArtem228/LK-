@@ -24,7 +24,7 @@ const FORMAT_LABELS = {
 }
 
 const STATUS_STYLES = {
-  upcoming: 'bg-indigo-50 text-indigo-700',
+  upcoming: 'bg-lime-50 text-lime-700',
   completed: 'bg-green-50 text-green-700',
   rescheduled: 'bg-amber-50 text-amber-700',
   cancelled: 'bg-red-50 text-red-500',
@@ -107,9 +107,9 @@ export function InterviewsPage() {
                 {/* Header */}
                 <div className={cn(
                   'px-6 py-5',
-                  selected.status === 'upcoming' ? 'bg-gradient-to-r from-indigo-500 to-purple-600' : 'bg-zinc-50'
+                  selected.status === 'upcoming' ? 'bg-gradient-to-r from-lime-500 to-purple-600' : 'bg-zinc-50'
                 )}>
-                  <div className={cn('flex items-center gap-2 mb-3', selected.status === 'upcoming' ? 'text-indigo-100' : 'text-zinc-500')}>
+                  <div className={cn('flex items-center gap-2 mb-3', selected.status === 'upcoming' ? 'text-lime-100' : 'text-zinc-500')}>
                     <span className={cn('px-2.5 py-1 rounded-full text-xs font-medium', selected.status === 'upcoming' ? 'bg-white/20 text-white' : STATUS_STYLES[selected.status])}>
                       {STATUS_LABELS[selected.status]}
                     </span>
@@ -119,10 +119,10 @@ export function InterviewsPage() {
                   <h2 className={cn('text-lg font-semibold', selected.status === 'upcoming' ? 'text-white' : 'text-zinc-900')}>
                     {selected.company}
                   </h2>
-                  <p className={cn('text-sm mt-0.5', selected.status === 'upcoming' ? 'text-indigo-100' : 'text-zinc-500')}>
+                  <p className={cn('text-sm mt-0.5', selected.status === 'upcoming' ? 'text-lime-100' : 'text-zinc-500')}>
                     {selected.vacancyTitle}
                   </p>
-                  <div className={cn('flex items-center gap-4 mt-3 text-sm', selected.status === 'upcoming' ? 'text-indigo-100' : 'text-zinc-500')}>
+                  <div className={cn('flex items-center gap-4 mt-3 text-sm', selected.status === 'upcoming' ? 'text-lime-100' : 'text-zinc-500')}>
                     <span className="flex items-center gap-1.5">
                       <Calendar className="w-4 h-4" />
                       {formatDateTime(selected.scheduledAt)}
@@ -157,7 +157,7 @@ export function InterviewsPage() {
                       onClick={() => setActiveTab(tab)}
                       className={cn(
                         'flex-1 py-3 text-sm font-medium transition-colors',
-                        activeTab === tab ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-zinc-500 hover:text-zinc-700'
+                        activeTab === tab ? 'text-lime-600 border-b-2 border-lime-600' : 'text-zinc-500 hover:text-zinc-700'
                       )}
                     >
                       {tab === 'company' ? 'О компании' : tab === 'questions' ? 'Вопросы' : 'Чек-лист'}
@@ -186,7 +186,7 @@ export function InterviewsPage() {
                           <ul className="space-y-1.5">
                             {selected.prepPackage.tips.map((tip, i) => (
                               <li key={i} className="flex items-start gap-2 text-sm text-zinc-600">
-                                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 flex-shrink-0" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-lime-400 mt-1.5 flex-shrink-0" />
                                 {tip}
                               </li>
                             ))}
@@ -256,7 +256,7 @@ function InterviewListCard({ interview, isSelected, onSelect }: { interview: Int
       onClick={onSelect}
       className={cn(
         'bg-white rounded-xl border p-4 cursor-pointer transition-all',
-        isSelected ? 'border-indigo-300 shadow-sm' : 'border-zinc-100 hover:border-zinc-200'
+        isSelected ? 'border-lime-300 shadow-sm' : 'border-zinc-100 hover:border-zinc-200'
       )}
     >
       <div className="flex items-start justify-between gap-3 mb-2">
@@ -270,7 +270,7 @@ function InterviewListCard({ interview, isSelected, onSelect }: { interview: Int
       </div>
       <p className="text-xs text-zinc-600">{formatDateTime(interview.scheduledAt)}</p>
       {daysLeft !== null && daysLeft <= 2 && (
-        <p className="text-xs font-semibold text-indigo-600 mt-1">
+        <p className="text-xs font-semibold text-lime-600 mt-1">
           {daysLeft === 0 ? 'Сегодня!' : daysLeft === 1 ? 'Завтра' : `Через ${daysLeft} дня`}
         </p>
       )}

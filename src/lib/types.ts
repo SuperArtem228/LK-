@@ -1,5 +1,5 @@
 // ============================================================
-// Core domain types for HHLab/Sofi demo personal account
+// Core domain types for HHLab/HHLab demo personal account
 // ============================================================
 
 export type OnboardingStep = 'goal' | 'experience' | 'preferences' | 'complete'

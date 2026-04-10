@@ -1,4 +1,4 @@
-export const APP_NAME = 'Sofi'
+export const APP_NAME = 'HHLab'
 export const APP_TAGLINE = 'AI-помощник в поиске работы'
 
 export const ROUTES = {

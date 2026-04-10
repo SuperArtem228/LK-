@@ -263,7 +263,7 @@ export function TourOverlay() {
 
           {/* Step label */}
           <div className="px-5 pb-1">
-            <span className="text-xs font-medium text-indigo-600">
+            <span className="text-xs font-medium text-lime-600">
               Шаг {currentStep + 1} из {TOUR_STEPS.length}
             </span>
           </div>
@@ -292,7 +292,7 @@ export function TourOverlay() {
                 key={i}
                 className={cn(
                   'rounded-full transition-all duration-200',
-                  i === currentStep ? 'w-5 h-1.5 bg-indigo-600' : 'w-1.5 h-1.5 bg-zinc-200'
+                  i === currentStep ? 'w-5 h-1.5 bg-lime-600' : 'w-1.5 h-1.5 bg-zinc-200'
                 )}
               />
             ))}
@@ -315,7 +315,7 @@ export function TourOverlay() {
             </button>
             <button
               onClick={nextStep}
-              className="flex items-center justify-center gap-1 flex-1 py-3 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800 transition-colors"
+              className="flex items-center justify-center gap-1 flex-1 py-3 rounded-xl text-sm font-semibold bg-lime-600 text-white hover:bg-lime-700 active:bg-lime-800 transition-colors"
             >
               {isLast ? 'Завершить' : 'Далее'}
               {!isLast && <ChevronRight className="w-4 h-4" />}
@@ -349,7 +349,7 @@ export function TourOverlay() {
                 key={i}
                 className={cn(
                   'rounded-full transition-all duration-200',
-                  i === currentStep ? 'w-4 h-1.5 bg-indigo-600' : 'w-1.5 h-1.5 bg-zinc-200'
+                  i === currentStep ? 'w-4 h-1.5 bg-lime-600' : 'w-1.5 h-1.5 bg-zinc-200'
                 )}
               />
             ))}
@@ -372,7 +372,7 @@ export function TourOverlay() {
             </span>
             <button
               onClick={nextStep}
-              className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+              className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-lg bg-lime-600 text-white hover:bg-lime-700 transition-colors"
             >
               {isLast ? 'Готово' : 'Далее'}
               {!isLast && <ChevronRight className="w-3.5 h-3.5" />}
@@ -384,7 +384,7 @@ export function TourOverlay() {
       {/* Navigation loading indicator */}
       {navigating && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[120] bg-white rounded-xl shadow-xl px-6 py-4 flex items-center gap-3">
-          <div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+          <div className="w-4 h-4 border-2 border-lime-600 border-t-transparent rounded-full animate-spin" />
           <span className="text-sm text-zinc-700">Загрузка...</span>
         </div>
       )}

@@ -78,7 +78,7 @@ export function ProfilePage() {
                 showVersion === 'improved' ? 'bg-white shadow-sm text-zinc-900' : 'text-zinc-500 hover:text-zinc-700'
               )}
             >
-              <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+              <Sparkles className="w-3.5 h-3.5 text-lime-500" />
               AI-улучшенное
             </button>
           </div>
@@ -127,9 +127,9 @@ export function ProfilePage() {
               <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-3">Опыт работы</h3>
               <div className="space-y-4">
                 {current.experience.map((exp) => (
-                  <div key={exp.id} className="pl-3 border-l-2 border-indigo-100">
+                  <div key={exp.id} className="pl-3 border-l-2 border-lime-100">
                     <p className="text-sm font-semibold text-zinc-900">{exp.position}</p>
-                    <p className="text-sm text-indigo-600">{exp.company}</p>
+                    <p className="text-sm text-lime-600">{exp.company}</p>
                     <p className="text-xs text-zinc-400 mt-0.5">{exp.period}</p>
                     <p className="text-sm text-zinc-600 mt-2 leading-relaxed">{exp.description}</p>
                   </div>
@@ -156,7 +156,7 @@ export function ProfilePage() {
           {/* Score comparison */}
           <div className="bg-white rounded-xl border border-zinc-100 p-5" data-tour-id="resume-score">
             <h3 className="text-sm font-semibold text-zinc-900 mb-1 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-indigo-500" />
+              <Sparkles className="w-4 h-4 text-lime-500" />
               AI-оценка резюме
             </h3>
             <p className="text-xs text-zinc-400 mb-3">
@@ -185,7 +185,7 @@ export function ProfilePage() {
                   'w-full py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2',
                   applyingAll
                     ? 'bg-zinc-100 text-zinc-400 cursor-not-allowed'
-                    : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                    : 'bg-lime-600 text-white hover:bg-lime-700'
                 )}
               >
                 {applyingAll ? (
@@ -227,7 +227,7 @@ export function ProfilePage() {
                     <p className="text-xs text-zinc-600 leading-relaxed mb-2">{rec.text}</p>
                     <button
                       onClick={() => handleApplySingle(rec.id)}
-                      className="text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
+                      className="text-xs font-medium text-lime-600 hover:text-lime-800 transition-colors"
                     >
                       Применить →
                     </button>

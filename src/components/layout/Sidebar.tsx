@@ -11,13 +11,13 @@ import {
   Calendar,
   Bell,
   CreditCard,
-  Zap,
   Settings,
   X,
 } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 import { ROUTES } from '@/lib/constants'
 import { useNotificationsStore } from '@/store/notifications.store'
+import { HHLabLogo } from '@/components/shared/HHLabLogo'
 
 const navItems = [
   { href: ROUTES.DASHBOARD, label: 'Дашборд', icon: LayoutDashboard },
@@ -43,10 +43,8 @@ export function Sidebar({ onClose }: SidebarProps) {
     <aside className="flex flex-col h-full w-[var(--sidebar-width,240px)] border-r border-zinc-100 bg-white px-3 py-4">
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-3 mb-6">
-        <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center flex-shrink-0">
-          <Zap className="w-4 h-4 text-white" />
-        </div>
-        <span className="font-semibold text-zinc-900 text-base tracking-tight flex-1">Sofi</span>
+        <HHLabLogo size="sm" />
+        <span className="font-semibold text-zinc-900 text-base tracking-tight flex-1">HHLab</span>
         {onClose && (
           <button
             onClick={onClose}
@@ -71,14 +69,14 @@ export function Sidebar({ onClose }: SidebarProps) {
                 'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all',
                 item.secondary ? 'ml-2' : '',
                 isActive
-                  ? 'bg-indigo-50 text-indigo-700'
+                  ? 'bg-lime-50 text-lime-700'
                   : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900'
               )}
             >
-              <Icon className={cn('w-4 h-4 flex-shrink-0', isActive ? 'text-indigo-600' : 'text-zinc-400')} />
+              <Icon className={cn('w-4 h-4 flex-shrink-0', isActive ? 'text-lime-600' : 'text-zinc-400')} />
               <span className="flex-1 truncate">{item.label}</span>
               {item.badge && unreadCount > 0 && (
-                <span className="ml-auto bg-indigo-600 text-white text-xs font-semibold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+                <span className="ml-auto bg-lime-600 text-white text-xs font-semibold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
                   {unreadCount > 9 ? '9+' : unreadCount}
                 </span>
               )}

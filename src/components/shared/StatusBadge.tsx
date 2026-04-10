@@ -8,7 +8,7 @@ const statusStyles: Record<ApplicationStatus, string> = {
   sent: 'bg-blue-50 text-blue-600',
   viewed: 'bg-purple-50 text-purple-700',
   replied: 'bg-amber-50 text-amber-700',
-  interview: 'bg-indigo-50 text-indigo-700',
+  interview: 'bg-lime-50 text-lime-700',
   test_task: 'bg-orange-50 text-orange-700',
   offer: 'bg-green-50 text-green-700',
   rejected: 'bg-red-50 text-red-500',

@@ -110,7 +110,7 @@ export function HHConnectFlow() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-indigo-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-lime-50 flex items-center justify-center p-4">
       <div className="w-full max-w-[480px] animate-fade-in">
         {/* Progress bar */}
         <div className="flex items-center gap-2 mb-6">
@@ -118,7 +118,7 @@ export function HHConnectFlow() {
             <div key={s.id} className="flex items-center gap-1 flex-1">
               <div className={cn(
                 'w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0',
-                i < currentStep ? 'bg-indigo-600' : i === currentStep ? 'bg-indigo-100 ring-2 ring-indigo-300' : 'bg-zinc-100'
+                i < currentStep ? 'bg-lime-600' : i === currentStep ? 'bg-lime-100 ring-2 ring-lime-300' : 'bg-zinc-100'
               )}>
                 {i < currentStep
                   ? <CheckCircle2 className="w-3 h-3 text-white" />
@@ -128,7 +128,7 @@ export function HHConnectFlow() {
               <span className={cn('text-[11px] font-medium hidden sm:block', i === currentStep ? 'text-zinc-700' : 'text-zinc-400')}>
                 {s.label}
               </span>
-              {i < STEPS.length - 1 && <div className={cn('h-px flex-1 mx-1', i < currentStep ? 'bg-indigo-300' : 'bg-zinc-200')} />}
+              {i < STEPS.length - 1 && <div className={cn('h-px flex-1 mx-1', i < currentStep ? 'bg-lime-300' : 'bg-zinc-200')} />}
             </div>
           ))}
         </div>
@@ -148,7 +148,7 @@ export function HHConnectFlow() {
                 </div>
               </div>
               <h2 className="text-base font-semibold text-zinc-900 mb-1">Войдите в аккаунт HH.ru</h2>
-              <p className="text-sm text-zinc-500 mb-5">Sofi получит доступ к вашему резюме и вакансиям</p>
+              <p className="text-sm text-zinc-500 mb-5">HHLab получит доступ к вашему резюме и вакансиям</p>
               <form onSubmit={handleAuth} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-zinc-700 mb-1.5">Email или телефон</label>
@@ -157,7 +157,7 @@ export function HHConnectFlow() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="example@mail.ru"
-                    className="w-full px-3.5 py-2.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500"
                   />
                 </div>
                 <div>
@@ -167,7 +167,7 @@ export function HHConnectFlow() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full px-3.5 py-2.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500"
                   />
                 </div>
                 <button
@@ -186,7 +186,7 @@ export function HHConnectFlow() {
                 </button>
               </form>
               <p className="text-xs text-zinc-400 text-center mt-4">
-                Sofi не хранит ваш пароль
+                HHLab не хранит ваш пароль
               </p>
             </div>
           )}
@@ -195,12 +195,12 @@ export function HHConnectFlow() {
           {currentStep === 1 && (
             <div className="p-8 animate-fade-in">
               <div className="flex items-center gap-2 mb-5">
-                <Loader2 className="w-5 h-5 text-indigo-500 animate-spin" />
+                <Loader2 className="w-5 h-5 text-lime-500 animate-spin" />
                 <h2 className="text-base font-semibold text-zinc-900">Импорт резюме</h2>
               </div>
               <div className="h-2 bg-zinc-100 rounded-full overflow-hidden mb-5">
                 <div
-                  className="h-full bg-indigo-500 rounded-full transition-all duration-150"
+                  className="h-full bg-lime-500 rounded-full transition-all duration-150"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -225,13 +225,13 @@ export function HHConnectFlow() {
           {currentStep === 2 && (
             <div className="p-8 animate-fade-in">
               <div className="flex items-center gap-2 mb-5">
-                <Loader2 className="w-5 h-5 text-indigo-500 animate-spin" />
+                <Loader2 className="w-5 h-5 text-lime-500 animate-spin" />
                 <h2 className="text-base font-semibold text-zinc-900">Анализ профиля</h2>
               </div>
               <div className="space-y-3">
                 {analyzeItems.map((item, i) => (
                   <div key={item} className="flex items-center gap-2 animate-fade-in">
-                    <CheckCircle2 className={cn('w-4 h-4 flex-shrink-0', i === analyzeItems.length - 1 && item.includes('Оценка') ? 'text-indigo-500' : 'text-green-500')} />
+                    <CheckCircle2 className={cn('w-4 h-4 flex-shrink-0', i === analyzeItems.length - 1 && item.includes('Оценка') ? 'text-lime-500' : 'text-green-500')} />
                     <span className={cn('text-sm', item.includes('Оценка') ? 'font-medium text-zinc-900' : 'text-zinc-700')}>{item}</span>
                   </div>
                 ))}
@@ -251,24 +251,24 @@ export function HHConnectFlow() {
               {!done ? (
                 <>
                   <div className="flex items-center gap-2 mb-5">
-                    <Loader2 className="w-5 h-5 text-indigo-500 animate-spin" />
+                    <Loader2 className="w-5 h-5 text-lime-500 animate-spin" />
                     <h2 className="text-base font-semibold text-zinc-900">Синхронизация вакансий</h2>
                   </div>
                   <div className="text-center py-4">
-                    <p className="text-4xl font-bold text-indigo-600 tabular-nums">{syncCount}</p>
+                    <p className="text-4xl font-bold text-lime-600 tabular-nums">{syncCount}</p>
                     <p className="text-sm text-zinc-500 mt-1">подходящих вакансий найдено</p>
                   </div>
                   <div className="space-y-2 mt-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-lime-400" />
                       <span className="text-xs text-zinc-500">Соответствие вашему профилю</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-lime-400" />
                       <span className="text-xs text-zinc-500">Фильтрация дубликатов</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-lime-400" />
                       <span className="text-xs text-zinc-500">Ранжирование по совпадению</span>
                     </div>
                   </div>
@@ -285,7 +285,7 @@ export function HHConnectFlow() {
                   </p>
                   <button
                     onClick={handleComplete}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-all"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium bg-lime-600 text-white hover:bg-lime-700 transition-all"
                   >
                     Перейти в кабинет
                     <ArrowRight className="w-4 h-4" />

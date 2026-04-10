@@ -118,13 +118,13 @@ export function JobsPage() {
             placeholder="Поиск по названию или компании..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+            className="w-full pl-9 pr-4 py-2.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500"
           />
         </div>
         <select
           value={formatFilter}
           onChange={(e) => setFormatFilter(e.target.value)}
-          className="py-2.5 px-3.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+          className="py-2.5 px-3.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500"
         >
           {Object.entries(FORMAT_LABELS).map(([val, label]) => (
             <option key={val} value={val}>{label}</option>
@@ -165,7 +165,7 @@ export function JobsPage() {
               <div className="flex items-start justify-between gap-4 mb-5">
                 <div>
                   <h2 className="text-lg font-semibold text-zinc-900">{selectedJob.title}</h2>
-                  <p className="text-sm text-indigo-600 font-medium mt-0.5">{selectedJob.company}</p>
+                  <p className="text-sm text-lime-600 font-medium mt-0.5">{selectedJob.company}</p>
                   <div className="flex items-center gap-3 mt-2 text-xs text-zinc-500">
                     <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{selectedJob.city}</span>
                     <span>·</span>
@@ -236,7 +236,7 @@ export function JobsPage() {
                 ) : (
                 <button
                   onClick={() => handleAddToQueue(selectedJob)}
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-all"
+                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg bg-lime-600 text-white text-sm font-medium hover:bg-lime-700 transition-all"
                 >
                   <Send className="w-4 h-4" />
                   Добавить отклик
@@ -246,7 +246,7 @@ export function JobsPage() {
                   onClick={() => handleSave(selectedJob.id)}
                   className={cn(
                     'p-2.5 rounded-lg border transition-all',
-                    saved.has(selectedJob.id) ? 'border-indigo-200 bg-indigo-50 text-indigo-600' : 'border-zinc-200 text-zinc-500 hover:border-zinc-300'
+                    saved.has(selectedJob.id) ? 'border-lime-200 bg-lime-50 text-lime-600' : 'border-zinc-200 text-zinc-500 hover:border-zinc-300'
                   )}
                 >
                   <Bookmark className={cn('w-4 h-4', saved.has(selectedJob.id) && 'fill-current')} />
@@ -284,14 +284,14 @@ function JobCard({
       onClick={onSelect}
       className={cn(
         'bg-white rounded-xl border transition-all cursor-pointer',
-        isSelected ? 'border-indigo-300 shadow-sm' : 'border-zinc-100 hover:border-zinc-200'
+        isSelected ? 'border-lime-300 shadow-sm' : 'border-zinc-100 hover:border-zinc-200'
       )}
     >
       <div className="p-4">
         <div className="flex items-start justify-between gap-3 mb-2">
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-zinc-900 truncate">{vacancy.title}</p>
-            <p className="text-xs text-indigo-600 font-medium mt-0.5">{vacancy.company}</p>
+            <p className="text-xs text-lime-600 font-medium mt-0.5">{vacancy.company}</p>
           </div>
           <MatchBadge percent={vacancy.matchPercent} size="sm" />
         </div>
@@ -319,14 +319,14 @@ function JobCard({
             ) : (
             <button
               onClick={(e) => { e.stopPropagation(); onAddToQueue() }}
-              className="flex items-center gap-1.5 text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
+              className="flex items-center gap-1.5 text-xs font-medium text-lime-600 hover:text-lime-800 transition-colors"
             >
               <Send className="w-3 h-3" /> Откликнуться
             </button>
             )}
             <button
               onClick={(e) => { e.stopPropagation(); onSave() }}
-              className={cn('flex items-center gap-1.5 text-xs font-medium transition-colors', isSaved ? 'text-indigo-600' : 'text-zinc-400 hover:text-zinc-600')}
+              className={cn('flex items-center gap-1.5 text-xs font-medium transition-colors', isSaved ? 'text-lime-600' : 'text-zinc-400 hover:text-zinc-600')}
             >
               <Bookmark className={cn('w-3 h-3', isSaved && 'fill-current')} />
               {isSaved ? 'Сохранено' : 'Сохранить'}

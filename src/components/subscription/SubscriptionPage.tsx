@@ -37,8 +37,8 @@ const PLANS = [
     period: 'в месяц',
     description: 'Для активного поиска работы',
     icon: Zap,
-    color: 'border-indigo-400 ring-1 ring-indigo-400',
-    badgeColor: 'bg-indigo-600 text-white',
+    color: 'border-lime-400 ring-1 ring-lime-400',
+    badgeColor: 'bg-lime-600 text-white',
     popular: true,
     features: [
       'До 20 откликов в день',
@@ -126,7 +126,7 @@ export function SubscriptionPage() {
             >
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="px-3 py-1 bg-indigo-600 text-white text-xs font-semibold rounded-full shadow-sm">
+                  <span className="px-3 py-1 bg-lime-600 text-white text-xs font-semibold rounded-full shadow-sm">
                     Популярный
                   </span>
                 </div>
@@ -180,7 +180,7 @@ export function SubscriptionPage() {
                   className={cn(
                     'w-full py-2.5 rounded-lg text-sm font-medium transition-all',
                     plan.id === 'pro'
-                      ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                      ? 'bg-lime-600 text-white hover:bg-lime-700'
                       : 'bg-amber-500 text-white hover:bg-amber-600'
                   )}
                 >
@@ -194,7 +194,7 @@ export function SubscriptionPage() {
 
       {/* Trust block */}
       <div className="bg-white rounded-xl border border-zinc-100 p-6">
-        <h3 className="text-sm font-semibold text-zinc-900 mb-4">Почему Sofi?</h3>
+        <h3 className="text-sm font-semibold text-zinc-900 mb-4">Почему HHLab?</h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           {[
             { icon: Sparkles, title: 'AI без компромиссов', desc: 'GPT-4 для каждого отклика, персонализация под конкретную вакансию' },
@@ -202,8 +202,8 @@ export function SubscriptionPage() {
             { icon: Zap, title: 'Реальные результаты', desc: 'Наши пользователи получают ответ в среднем через 3 дня после регистрации' },
           ].map(({ icon: Icon, title, desc }) => (
             <div key={title} className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-4 h-4 text-indigo-600" />
+              <div className="w-8 h-8 rounded-lg bg-lime-50 flex items-center justify-center flex-shrink-0">
+                <Icon className="w-4 h-4 text-lime-600" />
               </div>
               <div>
                 <p className="text-sm font-semibold text-zinc-900">{title}</p>

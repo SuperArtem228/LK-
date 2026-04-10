@@ -31,7 +31,7 @@ export function Header({ title }: Props) {
   const scenario = useDemoStore((s) => s.scenario)
   const openDrawer = useUIStore((s) => s.openDrawer)
   const pathname = usePathname()
-  const pageTitle = title ?? PAGE_TITLES[pathname] ?? 'Sofi'
+  const pageTitle = title ?? PAGE_TITLES[pathname] ?? 'HHLab'
 
   return (
     <header className="h-14 border-b border-zinc-100 bg-white flex items-center px-4 md:px-6 gap-3">
@@ -68,7 +68,7 @@ export function Header({ title }: Props) {
       <Link href={ROUTES.NOTIFICATIONS} className="relative p-2 rounded-lg hover:bg-zinc-50 transition-colors">
         <Bell className="w-5 h-5 text-zinc-500" />
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 w-4 h-4 bg-indigo-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+          <span className="absolute top-1 right-1 w-4 h-4 bg-lime-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
@@ -76,7 +76,7 @@ export function Header({ title }: Props) {
 
       {/* Avatar */}
       <div className="flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-xs font-semibold">
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-lime-400 to-purple-500 flex items-center justify-center text-white text-xs font-semibold">
           {scenario.user.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
         </div>
         <div className="hidden md:block">

@@ -103,14 +103,14 @@ export function DashboardPage() {
 
       {/* Trial banner */}
       {trialDaysLeft <= 9 && (
-        <div className="mb-5 flex items-center justify-between rounded-xl bg-indigo-50 border border-indigo-100 px-5 py-3">
+        <div className="mb-5 flex items-center justify-between rounded-xl bg-lime-50 border border-lime-100 px-5 py-3">
           <div className="flex items-center gap-2.5">
-            <Zap className="w-4 h-4 text-indigo-600" />
-            <span className="text-sm text-indigo-800 font-medium">
+            <Zap className="w-4 h-4 text-lime-600" />
+            <span className="text-sm text-lime-800 font-medium">
               Пробный период: осталось {formatDaysLeft(trialDaysLeft)}
             </span>
           </div>
-          <Link href={ROUTES.SUBSCRIPTION} className="text-xs font-semibold text-indigo-700 hover:text-indigo-900 flex items-center gap-1">
+          <Link href={ROUTES.SUBSCRIPTION} className="text-xs font-semibold text-lime-700 hover:text-lime-900 flex items-center gap-1">
             Продлить <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
@@ -151,7 +151,7 @@ export function DashboardPage() {
           <div className="bg-white rounded-xl border border-zinc-100 overflow-hidden">
             <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-50">
               <h3 className="text-sm font-semibold text-zinc-900">Последние отклики</h3>
-              <Link href={ROUTES.APPLICATIONS_HISTORY} className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+              <Link href={ROUTES.APPLICATIONS_HISTORY} className="text-xs text-lime-600 hover:text-lime-800 flex items-center gap-1">
                 Все <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
@@ -178,7 +178,7 @@ export function DashboardPage() {
           <div className="bg-white rounded-xl border border-zinc-100 overflow-hidden" data-tour-id="action-feed">
             <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-50">
               <h3 className="text-sm font-semibold text-zinc-900">Лента событий</h3>
-              <Link href={ROUTES.NOTIFICATIONS} className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+              <Link href={ROUTES.NOTIFICATIONS} className="text-xs text-lime-600 hover:text-lime-800 flex items-center gap-1">
                 Все <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
@@ -196,8 +196,8 @@ export function DashboardPage() {
           <div className="bg-white rounded-xl border border-zinc-100 p-5" data-tour-id="ai-progress">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-indigo-50 flex items-center justify-center">
-                  <Zap className="w-4 h-4 text-indigo-600" />
+                <div className="w-7 h-7 rounded-lg bg-lime-50 flex items-center justify-center">
+                  <Zap className="w-4 h-4 text-lime-600" />
                 </div>
                 <h3 className="text-sm font-semibold text-zinc-900">AI работает за вас</h3>
               </div>
@@ -262,7 +262,7 @@ export function DashboardPage() {
           {upcomingInterview && (
             <Link
               href={ROUTES.INTERVIEWS}
-              className="block bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-5 text-white hover:opacity-95 transition-opacity"
+              className="block bg-gradient-to-br from-lime-500 to-purple-600 rounded-xl p-5 text-white hover:opacity-95 transition-opacity"
             >
               <div className="flex items-center gap-2 mb-3">
                 <Calendar className="w-4 h-4 opacity-80" />
@@ -294,7 +294,7 @@ function StatCard({
   const colorMap = {
     blue: 'bg-blue-50 text-blue-600',
     amber: 'bg-amber-50 text-amber-600',
-    indigo: 'bg-indigo-50 text-indigo-600',
+    indigo: 'bg-lime-50 text-lime-600',
     green: 'bg-green-50 text-green-600',
   }
   return (
@@ -318,7 +318,7 @@ function AIProgressItem({
   color: string
 }) {
   const pct = Math.min(100, Math.round((value / max) * 100))
-  const colorBar = color === 'indigo' ? 'bg-indigo-500' : color === 'violet' ? 'bg-violet-500' : 'bg-blue-500'
+  const colorBar = color === 'indigo' ? 'bg-lime-500' : color === 'violet' ? 'bg-violet-500' : 'bg-blue-500'
   return (
     <div>
       <div className="flex items-center justify-between mb-1.5">
@@ -346,14 +346,14 @@ function NotifRow({ notification: n }: { notification: Notification }) {
   const Icon = icons[n.type] ?? Bell
   return (
     <div className="flex items-start gap-3 px-5 py-3.5">
-      <div className={cn('w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5', n.read ? 'bg-zinc-100' : 'bg-indigo-50')}>
-        <Icon className={cn('w-3.5 h-3.5', n.read ? 'text-zinc-400' : 'text-indigo-600')} />
+      <div className={cn('w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5', n.read ? 'bg-zinc-100' : 'bg-lime-50')}>
+        <Icon className={cn('w-3.5 h-3.5', n.read ? 'text-zinc-400' : 'text-lime-600')} />
       </div>
       <div className="flex-1 min-w-0">
         <p className={cn('text-sm leading-tight', n.read ? 'text-zinc-600' : 'text-zinc-900 font-medium')}>{n.title}</p>
         <p className="text-xs text-zinc-400 mt-0.5">{fromNow(n.createdAt)}</p>
       </div>
-      {!n.read && <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2 flex-shrink-0" />}
+      {!n.read && <span className="w-1.5 h-1.5 rounded-full bg-lime-500 mt-2 flex-shrink-0" />}
     </div>
   )
 }

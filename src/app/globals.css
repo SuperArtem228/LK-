@@ -8,8 +8,8 @@
   --muted: #f4f4f5;
   --muted-foreground: #71717a;
   --border: #e4e4e7;
-  --primary: #4f46e5;
-  --primary-foreground: #ffffff;
+  --primary: #84cc16;
+  --primary-foreground: #09090b;
   --secondary: #f4f4f5;
   --secondary-foreground: #18181b;
   --destructive: #ef4444;
@@ -33,7 +33,7 @@
     --muted: #27272a;
     --muted-foreground: #a1a1aa;
     --border: #27272a;
-    --primary: #6366f1;
+    --primary: #84cc16;
     --secondary: #27272a;
     --secondary-foreground: #fafafa;
   }

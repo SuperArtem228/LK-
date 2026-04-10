@@ -89,7 +89,7 @@ export function ApplicationsHistoryPage() {
                   </span>
                   <span className={cn(
                     'text-xs px-2 py-0.5 rounded bg-zinc-100 text-zinc-500 flex-shrink-0',
-                    app.source === 'auto' ? 'bg-indigo-50 text-indigo-600' : ''
+                    app.source === 'auto' ? 'bg-lime-50 text-lime-600' : ''
                   )}>
                     {app.source === 'auto' ? 'AI' : 'Вручную'}
                   </span>
@@ -127,10 +127,10 @@ export function ApplicationsHistoryPage() {
 
                     {/* Quick actions */}
                     <div className="flex gap-3 mt-2">
-                      <Link href={ROUTES.MESSAGES} className="flex items-center gap-1.5 text-xs text-indigo-600 font-medium hover:text-indigo-800">
+                      <Link href={ROUTES.MESSAGES} className="flex items-center gap-1.5 text-xs text-lime-600 font-medium hover:text-lime-800">
                         <MessageSquare className="w-3.5 h-3.5" /> Переписка
                       </Link>
-                      <Link href={ROUTES.INTERVIEWS} className="flex items-center gap-1.5 text-xs text-indigo-600 font-medium hover:text-indigo-800">
+                      <Link href={ROUTES.INTERVIEWS} className="flex items-center gap-1.5 text-xs text-lime-600 font-medium hover:text-lime-800">
                         <Calendar className="w-3.5 h-3.5" /> Интервью
                       </Link>
                     </div>

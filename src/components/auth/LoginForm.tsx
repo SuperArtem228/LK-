@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Zap, ArrowRight, Eye, EyeOff } from 'lucide-react'
+import { ArrowRight, Eye, EyeOff } from 'lucide-react'
+import { HHLabLogo } from '@/components/shared/HHLabLogo'
 import { useAuthStore } from '@/store/auth.store'
 import { useDemoStore } from '@/store/demo.store'
 import { cn } from '@/lib/utils/cn'
@@ -11,7 +12,7 @@ import { SCENARIOS } from '@/lib/demo/scenarios'
 import { ROUTES } from '@/lib/constants'
 import { toast } from 'sonner'
 
-const DEMO_CREDS = { email: 'demo@sofi.ai', password: 'demo1234' }
+const DEMO_CREDS = { email: 'demo@hhlab.ai', password: 'demo1234' }
 
 export function LoginForm() {
   const router = useRouter()
@@ -59,13 +60,13 @@ export function LoginForm() {
       const scenarioId = (demoParam && SCENARIOS[demoParam]) ? demoParam : 'junior-frontend'
       login(scenarioId)
       loadScenario(scenarioId)
-      toast.success('Добро пожаловать в Sofi!')
+      toast.success('Добро пожаловать в HHLab!')
       router.push(ROUTES.WELCOME)
     } else if (email.includes('@') && password.length >= 6) {
       // Accept any valid-looking email
       login('junior-frontend')
       loadScenario('junior-frontend')
-      toast.success('Добро пожаловать в Sofi!')
+      toast.success('Добро пожаловать в HHLab!')
       router.push(ROUTES.WELCOME)
     } else {
       setLoading(false)
@@ -79,10 +80,8 @@ export function LoginForm() {
       <div className="bg-white rounded-2xl shadow-sm border border-zinc-100 p-8">
         {/* Logo */}
         <div className="flex items-center gap-2.5 mb-7">
-          <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center">
-            <Zap className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-lg font-semibold text-zinc-900">Sofi</span>
+          <HHLabLogo size="sm" />
+          <span className="text-lg font-semibold text-zinc-900">HHLab</span>
         </div>
 
         <h1 className="text-xl font-semibold text-zinc-900 mb-1">Вход в кабинет</h1>
@@ -100,7 +99,7 @@ export function LoginForm() {
               placeholder="your@email.com"
               className={cn(
                 'w-full px-3.5 py-2.5 text-sm text-zinc-900 rounded-lg border bg-white transition-colors',
-                'focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500',
+                'focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500',
                 error ? 'border-red-300' : 'border-zinc-200'
               )}
               autoComplete="email"
@@ -117,7 +116,7 @@ export function LoginForm() {
                 placeholder="••••••••"
                 className={cn(
                   'w-full px-3.5 py-2.5 text-sm text-zinc-900 rounded-lg border bg-white pr-10 transition-colors',
-                  'focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500',
+                  'focus:outline-none focus:ring-2 focus:ring-lime-500/20 focus:border-lime-500',
                   error ? 'border-red-300' : 'border-zinc-200'
                 )}
                 autoComplete="current-password"
@@ -141,7 +140,7 @@ export function LoginForm() {
             disabled={loading}
             className={cn(
               'w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all',
-              'bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800',
+              'bg-lime-600 text-white hover:bg-lime-700 active:bg-lime-800',
               loading && 'opacity-60 cursor-not-allowed'
             )}
           >
@@ -163,16 +162,16 @@ export function LoginForm() {
           <p className="text-xs text-zinc-400 text-center mb-2">Демо-доступ</p>
           <button
             onClick={() => { setEmail(DEMO_CREDS.email); setPassword(DEMO_CREDS.password) }}
-            className="w-full text-xs text-indigo-600 hover:text-indigo-800 font-medium text-center transition-colors"
+            className="w-full text-xs text-lime-600 hover:text-lime-800 font-medium text-center transition-colors"
           >
-            demo@sofi.ai / demo1234
+            demo@hhlab.ai / demo1234
           </button>
         </div>
       </div>
 
       <p className="text-center text-xs text-zinc-400 mt-4">
         Нет аккаунта?{' '}
-        <button className="text-indigo-600 font-medium hover:underline">
+        <button className="text-lime-600 font-medium hover:underline">
           Начать бесплатно
         </button>
       </p>

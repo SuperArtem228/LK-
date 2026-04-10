@@ -136,7 +136,7 @@ export function ApplicationsQueuePage() {
           <p className="text-xs text-zinc-500 mt-0.5">В очереди</p>
         </div>
         <div className="bg-white rounded-xl border border-zinc-100 p-4 text-center">
-          <p className="text-2xl font-bold text-indigo-600 tabular-nums">{sentCount}</p>
+          <p className="text-2xl font-bold text-lime-600 tabular-nums">{sentCount}</p>
           <p className="text-xs text-zinc-500 mt-0.5">Отправлено всего</p>
         </div>
         <div className="bg-white rounded-xl border border-zinc-100 p-4 text-center">
@@ -149,7 +149,7 @@ export function ApplicationsQueuePage() {
       <div className="bg-white rounded-xl border border-zinc-100 p-5 mb-5">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-indigo-500" />
+            <Zap className="w-4 h-4 text-lime-500" />
             <div>
               <span className="text-sm font-semibold text-zinc-900">Дневной лимит</span>
               <span className="text-xs text-zinc-400 ml-2">{sentToday} / {DAILY_APPLY_LIMIT}</span>
@@ -166,7 +166,7 @@ export function ApplicationsQueuePage() {
                   ? 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200'
                   : dailyRemaining === 0
                   ? 'bg-zinc-100 text-zinc-400 cursor-not-allowed'
-                  : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-600/20'
+                  : 'bg-lime-600 text-white hover:bg-lime-700 shadow-sm shadow-lime-600/20'
               )}
             >
               {autoRunning ? (
@@ -182,15 +182,15 @@ export function ApplicationsQueuePage() {
           <div
             className={cn(
               'h-full rounded-full transition-all duration-500',
-              autoRunning ? 'bg-indigo-500 animate-pulse' : 'bg-indigo-500'
+              autoRunning ? 'bg-lime-500 animate-pulse' : 'bg-lime-500'
             )}
             style={{ width: `${Math.min(100, (sentToday / DAILY_APPLY_LIMIT) * 100)}%` }}
           />
         </div>
 
         {autoRunning && processingId && (
-          <p className="text-xs text-indigo-600 mt-2 flex items-center gap-1.5 animate-fade-in">
-            <span className="w-2.5 h-2.5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin inline-block" />
+          <p className="text-xs text-lime-600 mt-2 flex items-center gap-1.5 animate-fade-in">
+            <span className="w-2.5 h-2.5 border-2 border-lime-600 border-t-transparent rounded-full animate-spin inline-block" />
             {APPLY_STEPS[processStep]?.label}
           </p>
         )}
@@ -269,30 +269,30 @@ function QueueRow({
   return (
     <div className={cn(
       'bg-white rounded-xl border overflow-hidden transition-all',
-      isProcessing ? 'border-indigo-200 shadow-sm shadow-indigo-100' : 'border-zinc-100'
+      isProcessing ? 'border-lime-200 shadow-sm shadow-lime-100' : 'border-zinc-100'
     )}>
       <div className="flex items-center gap-3 px-4 py-3.5">
         {/* Company logo */}
         <div className={cn(
           'w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold transition-colors',
-          isProcessing ? 'bg-indigo-50 text-indigo-600' : 'bg-zinc-100 text-zinc-500'
+          isProcessing ? 'bg-lime-50 text-lime-600' : 'bg-zinc-100 text-zinc-500'
         )}>
           {isProcessing
-            ? <span className="w-4 h-4 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+            ? <span className="w-4 h-4 border-2 border-lime-500 border-t-transparent rounded-full animate-spin" />
             : app.company.slice(0, 2).toUpperCase()
           }
         </div>
 
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold text-zinc-900 truncate">{app.vacancyTitle}</p>
-          <p className={cn('text-xs truncate transition-colors', isProcessing ? 'text-indigo-500' : 'text-zinc-400')}>
+          <p className={cn('text-xs truncate transition-colors', isProcessing ? 'text-lime-500' : 'text-zinc-400')}>
             {isProcessing && stepLabel ? stepLabel : app.company}
           </p>
         </div>
 
         {/* Status */}
         {isProcessing ? (
-          <span className="text-xs font-medium text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full flex-shrink-0 flex items-center gap-1">
+          <span className="text-xs font-medium text-lime-600 bg-lime-50 px-2.5 py-1 rounded-full flex-shrink-0 flex items-center gap-1">
             <Sparkles className="w-3 h-3" />
             AI работает
           </span>
@@ -311,7 +311,7 @@ function QueueRow({
               disabled={disabled}
               className={cn(
                 'flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all',
-                disabled ? 'text-zinc-300 cursor-not-allowed' : 'text-indigo-600 hover:bg-indigo-50'
+                disabled ? 'text-zinc-300 cursor-not-allowed' : 'text-lime-600 hover:bg-lime-50'
               )}
             >
               <Send className="w-3 h-3" />
@@ -339,7 +339,7 @@ function QueueRow({
                 key={i}
                 className={cn(
                   'h-1 flex-1 rounded-full transition-all duration-500',
-                  i < processStep ? 'bg-indigo-500' : i === processStep ? 'bg-indigo-300 animate-pulse' : 'bg-zinc-100'
+                  i < processStep ? 'bg-lime-500' : i === processStep ? 'bg-lime-300 animate-pulse' : 'bg-zinc-100'
                 )}
               />
             ))}
@@ -350,12 +350,12 @@ function QueueRow({
       {expanded && !isProcessing && (
         <div className="border-t border-zinc-50 px-4 py-4 animate-fade-in" data-tour-id="cover-letter-preview">
           <div className="flex items-center gap-1.5 mb-2.5">
-            <FileText className="w-3.5 h-3.5 text-indigo-400" />
+            <FileText className="w-3.5 h-3.5 text-lime-400" />
             <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wide">Сопроводительное письмо</h4>
           </div>
           <p className="text-sm text-zinc-700 leading-relaxed">{app.coverLetter}</p>
           <p className="text-xs text-zinc-400 mt-3 flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-indigo-400" />
+            <Sparkles className="w-3 h-3 text-lime-400" />
             Персонализировано AI под эту вакансию
           </p>
         </div>

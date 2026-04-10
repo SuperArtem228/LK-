@@ -65,7 +65,7 @@ export function OnboardingWizard() {
         {/* Header */}
         <div className="px-8 pt-8 pb-5">
           <div className="flex items-center gap-2.5 mb-6">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-lime-600 flex items-center justify-center">
               <Zap className="w-4 h-4 text-white" />
             </div>
             <span className="font-semibold text-zinc-900">Настройка профиля</span>
@@ -79,9 +79,9 @@ export function OnboardingWizard() {
                   className={cn(
                     'w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0',
                     i < step
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-lime-600 text-white'
                       : i === step
-                      ? 'bg-indigo-100 text-indigo-700 ring-2 ring-indigo-200'
+                      ? 'bg-lime-100 text-lime-700 ring-2 ring-lime-200'
                       : 'bg-zinc-100 text-zinc-400'
                   )}
                 >
@@ -91,7 +91,7 @@ export function OnboardingWizard() {
                   {label}
                 </span>
                 {i < STEPS.length - 1 && (
-                  <div className={cn('h-px flex-1 mx-1', i < step ? 'bg-indigo-300' : 'bg-zinc-100')} />
+                  <div className={cn('h-px flex-1 mx-1', i < step ? 'bg-lime-300' : 'bg-zinc-100')} />
                 )}
               </div>
             ))}
@@ -112,7 +112,7 @@ export function OnboardingWizard() {
                     className={cn(
                       'w-full text-left px-4 py-3 rounded-lg border text-sm font-medium transition-all',
                       goal === g
-                        ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
+                        ? 'border-lime-500 bg-lime-50 text-lime-700'
                         : 'border-zinc-200 text-zinc-700 hover:border-zinc-300 hover:bg-zinc-50'
                     )}
                   >
@@ -135,11 +135,11 @@ export function OnboardingWizard() {
                     className={cn(
                       'w-full text-left px-4 py-3 rounded-lg border transition-all',
                       experience === opt.value
-                        ? 'border-indigo-500 bg-indigo-50'
+                        ? 'border-lime-500 bg-lime-50'
                         : 'border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50'
                     )}
                   >
-                    <p className={cn('text-sm font-medium', experience === opt.value ? 'text-indigo-700' : 'text-zinc-900')}>{opt.label}</p>
+                    <p className={cn('text-sm font-medium', experience === opt.value ? 'text-lime-700' : 'text-zinc-900')}>{opt.label}</p>
                     <p className="text-xs text-zinc-500 mt-0.5">{opt.desc}</p>
                   </button>
                 ))}
@@ -159,7 +159,7 @@ export function OnboardingWizard() {
                     className={cn(
                       'flex-1 py-3 rounded-lg border text-sm font-medium transition-all',
                       formats.includes(f.value)
-                        ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
+                        ? 'border-lime-500 bg-lime-50 text-lime-700'
                         : 'border-zinc-200 text-zinc-700 hover:border-zinc-300 hover:bg-zinc-50'
                     )}
                   >
@@ -188,7 +188,7 @@ export function OnboardingWizard() {
                 className={cn(
                   'flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium transition-all',
                   canNext
-                    ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                    ? 'bg-lime-600 text-white hover:bg-lime-700'
                     : 'bg-zinc-100 text-zinc-400 cursor-not-allowed'
                 )}
               >
@@ -201,7 +201,7 @@ export function OnboardingWizard() {
                 className={cn(
                   'flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium transition-all',
                   canNext && !loading
-                    ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                    ? 'bg-lime-600 text-white hover:bg-lime-700'
                     : 'bg-zinc-100 text-zinc-400 cursor-not-allowed'
                 )}
               >

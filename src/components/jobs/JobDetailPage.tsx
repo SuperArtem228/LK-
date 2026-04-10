@@ -29,7 +29,7 @@ export function JobDetailPage({ id }: { id: string }) {
       <div className="bg-white rounded-xl border border-zinc-100 p-6 space-y-5">
         <div>
           <h1 className="text-xl font-semibold text-zinc-900">{vacancy.title}</h1>
-          <p className="text-sm text-indigo-600 font-medium mt-1">{vacancy.company}</p>
+          <p className="text-sm text-lime-600 font-medium mt-1">{vacancy.company}</p>
           <div className="flex items-center gap-3 mt-2">
             <MatchBadge percent={vacancy.matchPercent} />
             <span className="text-sm font-semibold text-zinc-900">{formatSalary(vacancy.salary.min, vacancy.salary.max)}</span>
@@ -55,7 +55,7 @@ export function JobDetailPage({ id }: { id: string }) {
 
         <button
           onClick={() => { toast.success('Добавлено в очередь откликов'); router.push(ROUTES.APPLICATIONS_QUEUE) }}
-          className="w-full py-2.5 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-all"
+          className="w-full py-2.5 rounded-lg bg-lime-600 text-white text-sm font-medium hover:bg-lime-700 transition-all"
         >
           Добавить в очередь откликов
         </button>

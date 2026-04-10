@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sofi — AI-помощник в поиске работы",
+  title: "HHLab — AI-помощник в поиске работы",
   description: "Автоматизируй поиск работы с AI: подбор вакансий, автоотклики, подготовка к интервью",
 };
 
