@@ -118,13 +118,13 @@ export function JobsPage() {
             placeholder="Поиск по названию или компании..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 text-sm rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+            className="w-full pl-9 pr-4 py-2.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
           />
         </div>
         <select
           value={formatFilter}
           onChange={(e) => setFormatFilter(e.target.value)}
-          className="py-2.5 px-3.5 text-sm rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-zinc-700"
+          className="py-2.5 px-3.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
         >
           {Object.entries(FORMAT_LABELS).map(([val, label]) => (
             <option key={val} value={val}>{label}</option>

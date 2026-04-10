@@ -99,7 +99,7 @@ export function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               className={cn(
-                'w-full px-3.5 py-2.5 text-sm rounded-lg border bg-white transition-colors',
+                'w-full px-3.5 py-2.5 text-sm text-zinc-900 rounded-lg border bg-white transition-colors',
                 'focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500',
                 error ? 'border-red-300' : 'border-zinc-200'
               )}
@@ -116,7 +116,7 @@ export function LoginForm() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 className={cn(
-                  'w-full px-3.5 py-2.5 text-sm rounded-lg border bg-white pr-10 transition-colors',
+                  'w-full px-3.5 py-2.5 text-sm text-zinc-900 rounded-lg border bg-white pr-10 transition-colors',
                   'focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500',
                   error ? 'border-red-300' : 'border-zinc-200'
                 )}

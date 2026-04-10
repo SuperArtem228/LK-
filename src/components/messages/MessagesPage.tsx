@@ -217,7 +217,7 @@ export function MessagesPage() {
                   onChange={(e) => setReplyText(e.target.value)}
                   placeholder="Написать ответ..."
                   rows={2}
-                  className="flex-1 px-3 py-2.5 text-sm rounded-xl border border-zinc-200 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="flex-1 px-3 py-2.5 text-sm text-zinc-900 bg-white rounded-xl border border-zinc-200 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleSend()
                   }}

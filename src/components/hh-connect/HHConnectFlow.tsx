@@ -157,7 +157,7 @@ export function HHConnectFlow() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="example@mail.ru"
-                    className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                   />
                 </div>
                 <div>
@@ -167,7 +167,7 @@ export function HHConnectFlow() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 text-sm text-zinc-900 rounded-lg border border-zinc-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                   />
                 </div>
                 <button
